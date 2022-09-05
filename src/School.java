@@ -9,7 +9,7 @@ public class School {
 
     public void register(Student newStudent) {
         schoolStudents.add(newStudent);
-        newStudent.setStudentId(String.format("%03d", schoolStudents.size()+1));
+        newStudent.setStudentId(schoolStudents.size()+1);
     }
 
     public int numberOfStudents() {
@@ -46,9 +46,9 @@ public class School {
         return null;
     }
 
-    public Student getStudent(String studentName) {
+    public Student getStudent(int studentId) {
         for (int i = 0; i < schoolStudents.size(); i++) {
-            if (Objects.equals(studentName, schoolStudents.get(i).getFirstName())) {
+            if (studentId == schoolStudents.get(i).getId()) {
                 return schoolStudents.get(i);
             }
 
@@ -58,6 +58,10 @@ public class School {
 
     public List<Course> getAllCourses() {
         return schoolCourses;
+    }
+
+    public List<Student> getAllStudents(){
+        return schoolStudents;
     }
 }
 

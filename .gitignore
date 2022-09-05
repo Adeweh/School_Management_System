@@ -1,0 +1,4 @@
+# Project exclude paths
+/out/
+School_Management_System.iml
+.idea

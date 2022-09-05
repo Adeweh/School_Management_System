@@ -7,7 +7,7 @@ public class Student {
     private String firstName;
     private String lastName;
     private String studentType;
-    private String studentId;
+    private int studentId;
 
     private boolean requestWithdrawal;
 
@@ -34,11 +34,11 @@ public class Student {
         return studentType;
     }
 
-    public String getId() {
+    public int getId() {
         return studentId;
     }
 
-    public void setStudentId(String studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 
@@ -58,7 +58,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format("FirstName: %s%nLastName: %s%nStudent Type: %s%nStudent Id: %s",
+        return String.format("FirstName: %s%nLastName: %s%nStudent Type: %s%nStudent Id: %03d",
                 getFirstName(), getLastName(), getStudentType(), getId());
 
     }

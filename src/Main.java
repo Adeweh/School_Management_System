@@ -1,7 +1,10 @@
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
     private static School school = new School();
+    private static int studentId;
     private static Scanner userInput = new Scanner(System.in);
     public static void main(String[] args) {
         mainMenu();
@@ -23,12 +26,19 @@ public class Main {
 
         switch (choice){
             case 1 -> adminMenu();
-            case 2 -> studentMenu();
+            case 2 -> {
+                System.out.println("Enter your Student ID: ");
+                studentId = userInput.nextInt();
+                if (school.getStudent(studentId) == null) {
+                    System.out.println("Invalid ID. Try again.");
+                    mainMenu();
+                } else studentMenu(studentId);
+            }
         }
 
     }
 
-    private static void studentMenu() {
+    private static void studentMenu(int studentId) {
         System.out.println("""
                 
                 1 Offer Course
@@ -38,20 +48,49 @@ public class Main {
                 """);
         int input = userInput.nextInt();
         switch (input){
-            case 1-> offerCourse();
-            case 2-> dropCourse();
-            case 3-> withdraw();
+            case 1-> offerCourse(studentId);
+            case 2-> dropCourse(studentId);
+            case 3-> withdraw(studentId);
 
         }
     }
 
-    private static void withdraw() {
+    private static void withdraw(int studentId) {
+        Student student = school.getStudent(studentId);
+        student.withdraw();
+
     }
 
-    private static void dropCourse() {
+    private static void dropCourse(int studentId) {
+        System.out.println("Enter course name: ");
+        String courseName = userInput.next();
+
+        Student student = school.getStudent(studentId);
+        student.deleteCourse(school.getCourse(courseName));
+
+
     }
 
-    private static void offerCourse() {
+    private static void offerCourse(int studentId) {
+
+//        System.out.println(school.getAllCourses());
+        Student student = school.getStudent(studentId);
+        List<Course> courseList = school.getAllCourses();
+        for (Course course:courseList) {
+            if(Objects.equals(course.getCourseType(), student.getStudentType())) {
+                System.out.println(course);
+            }
+        }
+
+        System.out.println("Enter course name: ");
+        String courseName = userInput.next();
+
+        student.addCourse(school.getCourse(courseName));
+
+
+
+
+
     }
 
     private static void adminMenu(){
@@ -68,27 +107,53 @@ public class Main {
             case 1-> addStudent();
             case 2-> addCourse();
             case 3 -> removeCourse();
-            case 4-> expelCourse();
+            case 4-> expelStudent();
 
         }
 
     }
 
-    private static void expelCourse() {
+    private static void expelStudent() {
+        System.out.println("Enter student id: ");
+        int id = userInput.nextInt();
+
     }
 
     private static void removeCourse() {
+        System.out.println("Enter course name: ");
+        String courseName = userInput.next();
+        Course course = school.getCourse(courseName);
+        school.deleteCourses(course);
     }
 
     private static void addCourse() {
+        System.out.println("Enter course Name: ");
+        String courseName = userInput.next();
+
+        System.out.println("Enter course Type: ");
+        String courseType = userInput.next();
+
+        Course course = new Course(courseName,courseType);
+        school.addCourses(course);
     }
 
     private static void addStudent() {
-        String firstName = "Tunde";
-        String lastName = "Ade";
-        String studentType = "Science";
-        Student newStudent = new Student(firstName, lastName, studentType);
-        school.register(newStudent);
+        System.out.println("Enter first name: ");
+        String firstName = userInput.next();
+
+        System.out.println("Enter last name: ");
+        String lastName = userInput.next();
+
+        System.out.println("Enter student type: ");
+        String type = userInput.next();
+
+
+        Student student = new Student(firstName,lastName,type);
+        school.register(student);
+
+        adminMenu();
+
+
     }
 
 }
