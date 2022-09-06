@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 public class Main {
     private static School school = new School();
     private static int studentId;
@@ -18,7 +20,7 @@ public class Main {
                 
                 1.ADMIN LOGIN
                 2.STUDENT LOGIN
-                3.EXIT
+                0.EXIT
               
                 """);
 
@@ -34,6 +36,7 @@ public class Main {
                     mainMenu();
                 } else studentMenu(studentId);
             }
+            case 0 -> exit();
         }
 
     }
@@ -42,15 +45,16 @@ public class Main {
         System.out.println("""
                 
                 1 Offer Course
-                3 Drop Course
-                4 Drop out of School
-                5 Exit 
+                2 Drop Course
+                3 Drop out of School
+                0 Exit 
                 """);
         int input = userInput.nextInt();
         switch (input){
             case 1-> offerCourse(studentId);
             case 2-> dropCourse(studentId);
             case 3-> withdraw(studentId);
+            case 0 -> exit();
 
         }
     }
@@ -58,6 +62,8 @@ public class Main {
     private static void withdraw(int studentId) {
         Student student = school.getStudent(studentId);
         student.withdraw();
+
+        studentMenu(studentId);
 
     }
 
@@ -68,7 +74,7 @@ public class Main {
         Student student = school.getStudent(studentId);
         student.deleteCourse(school.getCourse(courseName));
 
-        mainMenu();
+        studentMenu(studentId);
 
 
     }
@@ -89,10 +95,8 @@ public class Main {
 
         student.addCourse(school.getCourse(courseName));
 
-        mainMenu();
 
-
-
+        studentMenu(studentId);
 
 
     }
@@ -100,24 +104,32 @@ public class Main {
     private static void adminMenu(){
         System.out.println("""
                 1 Register Student
-                2 Add Course
-                3 Remove Course
-                4 View All Courses
-                5 Expel Student
-                6 Exit 
+                2 View Students
+                3 Add Course
+                4 Remove Course
+                5 View All Courses
+                6 Expel Student
+                0 Exit 
                 """);
         int input = userInput.nextInt();
 
         switch (input){
             case 1-> addStudent();
-            case 2-> addCourse();
-            case 3 -> removeCourse();
-            case 4 -> viewAllCourses();
-            case 5-> expelStudent();
+            case 2 -> viewAllStudents();
+            case 3-> addCourse();
+            case 4 -> removeCourse();
+            case 5 -> viewAllCourses();
+            case 6-> expelStudent();
+            case 0 -> exit();
 
         }
 
     }
+
+    private static void exit() {
+        System.exit(0);
+    }
+
 
     private static void expelStudent() {
         System.out.println("Enter student id: ");
@@ -128,6 +140,7 @@ public class Main {
     }
 
     private static void viewAllCourses(){
+
         System.out.println(school.getAllCourses());
     }
 
@@ -150,6 +163,10 @@ public class Main {
         Course course = new Course(courseName,courseType);
         school.addCourses(course);
 
+        adminMenu();
+    }
+    private static void viewAllStudents() {
+        System.out.println(school.getAllStudents());
         adminMenu();
     }
 
