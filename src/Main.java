@@ -68,6 +68,8 @@ public class Main {
         Student student = school.getStudent(studentId);
         student.deleteCourse(school.getCourse(courseName));
 
+        mainMenu();
+
 
     }
 
@@ -87,6 +89,8 @@ public class Main {
 
         student.addCourse(school.getCourse(courseName));
 
+        mainMenu();
+
 
 
 
@@ -98,8 +102,9 @@ public class Main {
                 1 Register Student
                 2 Add Course
                 3 Remove Course
-                4 Expel Student
-                5 Exit 
+                4 View All Courses
+                5 Expel Student
+                6 Exit 
                 """);
         int input = userInput.nextInt();
 
@@ -107,7 +112,8 @@ public class Main {
             case 1-> addStudent();
             case 2-> addCourse();
             case 3 -> removeCourse();
-            case 4-> expelStudent();
+            case 4 -> viewAllCourses();
+            case 5-> expelStudent();
 
         }
 
@@ -117,6 +123,12 @@ public class Main {
         System.out.println("Enter student id: ");
         int id = userInput.nextInt();
 
+        adminMenu();
+
+    }
+
+    private static void viewAllCourses(){
+        System.out.println(school.getAllCourses());
     }
 
     private static void removeCourse() {
@@ -124,6 +136,8 @@ public class Main {
         String courseName = userInput.next();
         Course course = school.getCourse(courseName);
         school.deleteCourses(course);
+
+        adminMenu();
     }
 
     private static void addCourse() {
@@ -135,6 +149,8 @@ public class Main {
 
         Course course = new Course(courseName,courseType);
         school.addCourses(course);
+
+        adminMenu();
     }
 
     private static void addStudent() {
