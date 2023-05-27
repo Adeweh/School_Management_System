@@ -1,89 +1,59 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
 public class Student {
-    private String firstName;
-    private String lastName;
-    private String studentType;
-    private int studentId;
+    private int id;
+    private String name;
+    private int grade;
+    private int feesPaid;
+    private int feesTotal;
 
-    private boolean requestWithdrawal;
-
-
-    List<Course> courses = new ArrayList<>();
-
-
-    public Student(String firstName, String lastName, String studentType){
-        this.firstName = firstName;
-        this.lastName=lastName;
-        this.studentType=studentType;
-
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getStudentType() {
-        return studentType;
+    public Student(int id, String name, int grade) {
+        this.feesPaid = 0;
+        this.feesTotal = 70000;
+        this.id = id;
+        this.name = name;
+        this.grade = grade;
     }
 
     public int getId() {
-        return studentId;
+        return id;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void addCourse(Course course) {
-        courses.add(course);
-
+    public String getName() {
+        return name;
     }
 
-    public int numberOfCourse() {
-        return courses.size();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void deleteCourse(Course course) {
-        courses.remove(course);
-        
+    public int getGrade() {
+        return grade;
     }
 
-    @Override
-    public String toString() {
-        return String.format("FirstName: %s%nLastName: %s%nStudent Type: %s%nStudent Id: %03d",
-                getFirstName(), getLastName(), getStudentType(), getId());
-
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
-    public boolean withdraw() {
-        return requestWithdrawal;
-
+    public int getFeesPaid() {
+        return feesPaid;
     }
 
-    public void setWithdrawalRequest(boolean requestStatus){
-        requestWithdrawal = requestStatus;
-
+    public void setFeesPaid(int feesPaid) {
+        this.feesPaid = feesPaid;
     }
 
-    public Course getCourse(String courseName) {
-        for (int i = 0; i < courses.size() ; i++) {
-            if (Objects.equals(courseName, courses.get(i).getCourseName())){
-                return courses.get(i);
-            }
-
-        }
-        return null;
+    public int getFeesTotal() {
+        return feesTotal;
     }
 
-    public List<Course> getAllCourses() {
-        return courses;
+    public void setFeesTotal(int feesTotal) {
+        this.feesTotal = feesTotal;
+    }
+
+    public void updateFeesPaid(int fees){
+        feesPaid+=fees;
     }
 }
