@@ -3,8 +3,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Teacher jane = new Teacher(1, "Jane", 50000);
-        Teacher john = new Teacher(1, "John", 70000);
+        Teacher jane = new Teacher(1, "Jane", 5000);
+        Teacher john = new Teacher(1, "John", 700);
 
         List<Teacher> teacherList = new ArrayList<>();
         teacherList.add(jane);
@@ -23,6 +23,12 @@ public class Main {
         joe.payFees(700);
         System.out.println(panaf.getMoneyEarned());
         kate.payFees(6000);
+        System.out.println(panaf.getMoneyEarned());
+
+        jane.receiveSalary(jane.getSalary());
+        System.out.println(panaf.getMoneyEarned());
+
+        john.receiveSalary(john.getSalary());
         System.out.println(panaf.getMoneyEarned());
 
 
